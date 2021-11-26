@@ -34,4 +34,8 @@ public class Cliente {
 	public String getEmail() {
 		return email;
 	}
+	
+	@Override
+        public String toString(){
+            return "Nome: "+ nome + "Endereço: "+ endereco + "Telefone: " + telefone + "Email: "+ email;
 }
