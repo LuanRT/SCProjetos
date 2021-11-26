@@ -33,7 +33,7 @@ public class Cliente {
 	}
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
 
 	@Override
