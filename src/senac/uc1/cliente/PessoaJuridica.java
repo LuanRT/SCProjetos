@@ -1,6 +1,8 @@
 package senac.uc1.cliente;
 
 public class PessoaJuridica extends Cliente {
+	private String cnpj;
+	
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
@@ -8,10 +10,10 @@ public class PessoaJuridica extends Cliente {
 	public String getCnpj() {
 		return cnpj;
 	}
-	
+
 	@Override
-        public String toString(){
-            return super.toString() + "\nPessoaJuridica" + "CNPJ: " + cnpj;
-        }
-	
+	public String toString() {
+		return super.toString() + "\n" +
+		"CNPJ: "+this.cnpj;
+	}
 }
