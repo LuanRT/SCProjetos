@@ -8,4 +8,3 @@ public class PessoaFisica extends Cliente {
 	public String getCpf() {
 		return cpf;
 	}
-}
