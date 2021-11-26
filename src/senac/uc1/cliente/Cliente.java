@@ -39,7 +39,6 @@ public class Cliente {
 	public String getEmail() {
 		return this.email;
 	}
-<<<<<<< ours
 	
 	public int getTipo() {
 		return this.tipo;
@@ -61,11 +60,4 @@ public class Cliente {
 
 		return client_info;
 	}
-}=======
-	
-	@Override
-        public String toString(){
-            return "Nome: "+ nome + "Endereço: "+ endereco + "Telefone: " + telefone + "Email: "+ email;
-	}
 }
->>>>>>> theirs
