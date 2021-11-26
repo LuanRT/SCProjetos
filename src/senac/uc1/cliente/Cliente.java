@@ -3,10 +3,6 @@ package senac.uc1.cliente;
 public class Cliente {
 	// Dados 
 	private String nome, endereco, telefone, email;
-	private int tipo;
-	
-	// Somente disponivel para as classes filhas
-	protected String cpf, cnpj;
 	
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -39,10 +35,6 @@ public class Cliente {
 	public String getEmail() {
 		return this.email;
 	}
-	
-	public int getTipo() {
-		return this.tipo;
-	}
 
 	@Override
 	public String toString() {
@@ -51,13 +43,6 @@ public class Cliente {
 			"Endereço: " + endereco + "\n" + 
 			"Telefone: " + telefone + "\n" +
 			"Email: " + email;
-
-		if (this.tipo == 0) {
-			client_info += "CPF: " + cpf;
-		} else {
-			client_info += "CNPJ: " + cnpj;
-		}
-
 		return client_info;
 	}
 }
