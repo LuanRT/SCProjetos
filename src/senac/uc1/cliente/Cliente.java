@@ -38,4 +38,5 @@ public class Cliente {
 	@Override
         public String toString(){
             return "Nome: "+ nome + "Endereço: "+ endereco + "Telefone: " + telefone + "Email: "+ email;
+	}
 }
