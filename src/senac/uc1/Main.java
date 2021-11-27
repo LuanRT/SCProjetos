@@ -5,49 +5,21 @@ import senac.uc1.cliente.*;
 import senac.uc1.utils.*;
 
 public class Main {
-<<<<<<< ours
 	private static int estado_index = 0;
 	private static State estado_atual;
 	private static ArrayList<Cliente> lista_de_clientes;
 	private static Scanner sc;
 
-=======
-	private static List lista_de_clientes;
-
->>>>>>> theirs
 	public static void main(String... args) {
 		sc = new Scanner(System.in);
 		lista_de_clientes = new ArrayList<Cliente>();
-<<<<<<< ours
 
 		// Seta o estado inicial do programa para menu principal
 		setSystemState(State.MENU_PRINCIPAL);
 
 		// Inicializa o loop principal do programa
 		init();
-=======
-
-		// temporario! somente para testes:
-		PessoaFisica pf = new PessoaFisica();
-		pf.setEmail("luanrt4@gmail.com");
-		pf.setEndereco("Test123");
-		pf.setNome("LuanRT");
-		pf.setTelefone("557799486848");
-		pf.setCpf("123-456-768-22");
-		
-		PessoaJuridica pj = new PessoaJuridica();
-		pj.setEmail("daniel@gmail.com");
-		pj.setEndereco("Test123");
-		pj.setNome("Daniel");
-		pj.setTelefone("557797365998");
-		pj.setCnpj("894-1763-2774-22");
-		
-		
-		System.out.println("Test1:\n" + pf.toString());
-		System.out.println("Test2:\n" + pj.toString());
->>>>>>> theirs
 	}
-<<<<<<< ours
 
 	private static void init() {
 		/* 
@@ -215,6 +187,4 @@ public class Main {
 			Thread.sleep(millis);
 		} catch (InterruptedException e) {}
 	}
-}=======
 }
->>>>>>> theirs
