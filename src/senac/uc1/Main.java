@@ -7,12 +7,12 @@ import senac.uc1.utils.*;
 public class Main {
     private static int estado_index = 0;
     private static State estado_atual;
-    private static ArrayList < Cliente > lista_de_clientes;
+    private static ArrayList<Cliente> lista_de_clientes;
     private static Scanner sc;
 
     public static void main(String...args) {
         sc = new Scanner(System.in);
-        lista_de_clientes = new ArrayList < Cliente > ();
+        lista_de_clientes = new ArrayList<Cliente>();
 
         // Seta o estado inicial do programa para menu principal
         setSystemState(State.MENU_PRINCIPAL);
