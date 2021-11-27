@@ -19,7 +19,7 @@ public class Constants {
 	GOODBYE =
 	"👋 Até mais!",
 	
-	// Tela de registro de clientes:
+	// Tela de registro de clientes: 
 	CLIENT_REGISTRATION = 
 	"🗃️ Cadastro De Cliente 🗃️",
 	

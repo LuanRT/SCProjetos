@@ -1,7 +1,7 @@
 package senac.uc1.utils;
 
 public enum State {
-	// 0 sempre é parar
+	// 0 sempre é parando
 	PARANDO,
 	
 	// Acoes do front-end
