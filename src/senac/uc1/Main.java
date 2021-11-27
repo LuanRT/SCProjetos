@@ -155,7 +155,7 @@ public class Main {
         if (estado_index > 5) {
             /*
              * Somente opcoes abaixo ou igual a posicao 5 sao validas para o usuario,
-             * acima disso são acoes internas do sistema
+             * pois acima disso sao acoes internas do sistema
              */
 
             System.out.println();
