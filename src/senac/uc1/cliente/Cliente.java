@@ -1,48 +1,47 @@
 package senac.uc1.cliente;
 
 public class Cliente {
-	// Dados 
-	private String nome, endereco, telefone, email;
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    private String nome, endereco, telefone, email;
 
-	public String getNome() {
-		return nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public String getEndereco() {
+        return endereco;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public String toString() {
-		String client_info = 
-			"Nome: " + nome + "\n" +
-			"Endereço: " + endereco + "\n" + 
-			"Telefone: " + telefone + "\n" +
-			"Email: " + email;
-		return client_info;
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        String client_info =
+            "Nome: " + nome + "\n" +
+            "Endereço: " + endereco + "\n" +
+            "Telefone: " + telefone + "\n" +
+            "Email: " + email;
+        return client_info;
+    }
 }
