@@ -10,7 +10,7 @@ public class Main {
     private static ArrayList<Cliente> lista_de_clientes;
     private static Scanner sc;
 
-    public static void main(String...args) {
+    public static void main(String... args) {
         sc = new Scanner(System.in);
         lista_de_clientes = new ArrayList<Cliente>();
 
