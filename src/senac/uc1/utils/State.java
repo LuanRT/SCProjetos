@@ -14,7 +14,7 @@ public enum State {
     // Acoes internas
     ESPERANDO_INPUT,
     MENU_PRINCIPAL,
-    PARADO;
+    PARADO; 
 
     public static State get(int index) {
         return values()[index];

@@ -1,4 +1,4 @@
-﻿package senac.uc1;
+package senac.uc1;
 
 import java.util.*;
 import senac.uc1.cliente.*;
@@ -7,12 +7,12 @@ import senac.uc1.utils.*;
 public class Main {
     private static int estado_index = 0;
     private static State estado_atual;
-    private static ArrayList<Cliente> lista_de_clientes;
+    private static ArrayList < Cliente > lista_de_clientes;
     private static Scanner sc;
 
-    public static void main(String... args) {
+    public static void main(String...args) {
         sc = new Scanner(System.in);
-        lista_de_clientes = new ArrayList<Cliente>();
+        lista_de_clientes = new ArrayList < Cliente > ();
 
         // Seta o estado inicial do programa para menu principal
         setSystemState(State.MENU_PRINCIPAL);
@@ -29,8 +29,7 @@ public class Main {
         while (estado_atual != State.PARADO) {
             switch (estado_atual.toString()) {
                 case "PARANDO":
-                    System.out.println(Constants.GOODBYE);
-                    setSystemState(State.PARADO);
+                    stopSystem();
                     break;
                 case "CADASTRANDO_CLIENT":
                     cadastraClient();
@@ -50,13 +49,10 @@ public class Main {
                 case "MENU_PRINCIPAL":
                     showMainMenu();
                     break;
+                default:
+                    throw new Error(Constants.INVALID_STATE);
             }
         }
-    }
-
-    private static void showMainMenu() {
-        System.out.println(Constants.MAIN_MENU);
-        getNewState();
     }
 
     private static void showStats() {
@@ -71,7 +67,45 @@ public class Main {
     }
 
     private static void showClientDetails() {
-        // TODO: Implementar isso
+        // Verifica se a lista tem pelo menos 1 cliente registrado
+        if (lista_de_clientes.size() == 0) {
+            System.out.println();
+            System.out.println(Constants.CLIENTS_UNAVAILABLE);
+            System.out.println();
+            delay(1200);
+            setSystemState(State.MENU_PRINCIPAL);
+            return;
+        }
+
+        // Se tiver então pede o usuario para escrever o email de algum cliente
+        System.out.println();
+        System.out.println(Constants.CLIENT_DETAILS_TITLE);
+        System.out.println();
+
+        System.out.println(Constants.TYPE_CLIENT_EMAIL);
+        String email = sc.next();
+        System.out.println();
+
+        System.out.println(Constants.SEARCHING_CLIENT);
+        delay(1200);
+
+        // Verifica cada cliente da lista ate encontrar o certo
+        for (Cliente client: lista_de_clientes) {
+            if (client.getEmail().equals(email)) {
+                System.out.println();
+                System.out.println(client.toString());
+                System.out.println();
+                delay(1200);
+                setSystemState(State.MENU_PRINCIPAL);
+                return;
+            }
+        }
+
+        // Caso não seja encontrado nada entao avisa o usuario e volta ao menu principal
+        System.out.println(Constants.CLIENT_NOT_FOUND.replace("${email}", email));
+        System.out.println();
+
+        setSystemState(State.MENU_PRINCIPAL);
     }
 
     private static void cadastraClient() {
@@ -83,12 +117,11 @@ public class Main {
         String name, address, phone_number, email, client_type;
         Cliente client = new Cliente();
 
-        System.out.println("Nome: ");
-        name = sc.nextLine();
-
-        // Isso é necessario, consome as linhas extras do primeiro input
+        // Isso é necessario, consome as linhas extras
         sc.nextLine();
 
+        System.out.println("Nome: ");
+        name = sc.nextLine();
         System.out.println();
 
         System.out.println("Endereço: ");
@@ -126,9 +159,13 @@ public class Main {
             pessoa_juridica.setCnpj(cnpj);
 
             client = pessoa_juridica;
+        } else {
+            // Recomeca o processo caso o usuario selecione uma opcao invalida
+            System.out.println(Constants.INVALID_TYPE_MSG);
+            return;
         }
 
-        // Seta as informacoes restantes
+        // Seta as informacoes restantes & adiciona o cliente a lista
         client.setNome(name);
         client.setEndereco(address);
         client.setTelefone(phone_number);
@@ -140,13 +177,26 @@ public class Main {
         System.out.println(Constants.REGISTRATION_SUCCESS_MSG);
         System.out.println();
 
-        delay(1000);
+        delay(1200);
 
         setSystemState(State.MENU_PRINCIPAL);
     }
 
-    private static void removeClient() {}
-    private static void modificaClient() {}
+    private static void removeClient() { /* TODO: Implementar isso */ }
+    private static void modificaClient() { /* TODO: Implementar isso */ }
+
+    // Para o sistema completamente
+    private static void stopSystem() {
+        System.out.println();
+        System.out.println(Constants.GOODBYE);
+        setSystemState(State.PARADO);
+    }
+
+    // Printa o menu principal e pede um novo estado para o sistema
+    private static void showMainMenu() {
+        System.out.println(Constants.MAIN_MENU);
+        getNewState();
+    }
 
     // Pega o novo estado do sistema apos interacao com o usuario
     private static void getNewState() {
@@ -154,7 +204,7 @@ public class Main {
 
         if (estado_index > 5) {
             /*
-             * Somente opcoes abaixo ou igual a posicao 5 sao validas para o usuario,
+             * Somente opcoes abaixo ou iguais a posicao 5 sao validas para o usuario,
              * pois acima disso sao acoes internas do sistema
              */
 
@@ -173,7 +223,7 @@ public class Main {
         estado_atual = state;
     }
 
-    // Faz a thread principal pausar por uma determinada quantidade de tempo
+    // Faz a thread principal pausar por uma determinada quantidade de tempo, isso ajuda a manter a aplicacao mais dinamica
     private static void delay(int millis) {
         try {
             Thread.sleep(millis);
