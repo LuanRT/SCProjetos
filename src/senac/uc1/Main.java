@@ -54,7 +54,8 @@ public class Main {
             }
         }
     }
-
+    
+    // Mostra quantidade de clientes cadastrados
     private static void showStats() {
         System.out.println();
         System.out.println(Constants.STATISTICS);
@@ -65,7 +66,8 @@ public class Main {
 
         setSystemState(State.MENU_PRINCIPAL);
     }
-
+    
+    // Consulta os detalhes de um cliente especifico
     private static void showClientDetails() {
         // Verifica se a lista tem pelo menos 1 cliente registrado
         if (lista_de_clientes.size() == 0) {
