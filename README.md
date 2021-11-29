@@ -2,6 +2,6 @@
 
 Projeto final da UC1 do curso de desenvolvimento de sistemas do Senac.
 
-# Fluxograma
+### Fluxograma
 
 ![flowchart](./docs/flowchart.svg "Google's Knowledge Graph")
