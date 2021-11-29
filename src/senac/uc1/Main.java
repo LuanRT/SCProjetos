@@ -133,6 +133,19 @@ public class Main {
         client.setEndereco(endereco);
         client.setTelefone(numero);
         client.setEmail(email);
+        
+        // Verifica se o cliente ja existe na lista
+        for (Cliente a_client: lista_de_clientes) {
+          if (a_client.toString().equals(client.toString())) {
+            System.out.println();
+            System.out.println(Constants.CLIENT_JA_CADASTRADO);
+            System.out.println();
+            
+            delay(1200);		
+            setSistemaEstado(State.MENU_PRINCIPAL);
+            return;
+          }
+        }
 
         lista_de_clientes.add(client);
 
