@@ -21,30 +21,52 @@ public class VotoDao {
      * @param candidato_inscricao Numero de inscricao do candidato.
      * @throws SQLException
      */
-    public void registraVoto(int eleitor_inscricao, int candidato_inscricao) throws SQLException {
+    public void registerVote(int eleitor_inscricao, int candidato_inscricao) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "INSERT INTO Voto (inscricaoEleitor, inscricaoCandidato) VALUES (?, ?);";
+        String cargo = new CandidatoDao(dbmanager).getCandidato(candidato_inscricao).getCodCargo();
+        String query = "INSERT INTO Voto (inscricaoEleitor, inscricaoCandidato, codCargo) VALUES (?, ?, ?);";
 
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, eleitor_inscricao);
         statement.setInt(2, candidato_inscricao);
+        statement.setString(3, cargo);
         statement.executeUpdate();
 
         dbmanager.closePreparedStatement(statement);
     }
 
     /**
-     * Returna a quantidade total de votos registrados.
+     * Registra um voto como branco.
+     * 
+     * @param eleitor_inscricao Numero de inscricao do eleitor.
+     * @throws SQLException
+     */
+    public void registerVote(int eleitor_inscricao) throws SQLException {
+        Connection conn = dbmanager.getConnection();
+
+        String query = "INSERT INTO Voto (inscricaoEleitor) VALUES (?);";
+
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, eleitor_inscricao);
+        statement.executeUpdate();
+
+        dbmanager.closePreparedStatement(statement);
+    }
+
+    /**
+     * Returna a quantidade total de votos registrados em um cargo.
      * 
      * @return Integer
      * @throws SQLException
      */
-    public int getTotalVotesCount() throws SQLException {
+    public int getTotalVotesCount(String cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Voto;";
+        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = ? AND Voto.codCargo != 'WH';";
+
         PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, cargo);
 
         ResultSet result = statement.executeQuery();
         result.next();
@@ -61,7 +83,7 @@ public class VotoDao {
      * Retorna a quantidade de votos que um candidato recebeu.
      * 
      * @param inscricao_candidato Numero de inscricao do candidato.
-     * @return
+     * @return Integer
      * @throws SQLException
      */
     public int getVotesCount(int inscricao_candidato) throws SQLException {
@@ -79,5 +101,56 @@ public class VotoDao {
         dbmanager.closePreparedStatement(statement);
         dbmanager.closeResultSet(result);
         return votes_count;
+    }
+
+    /**
+     * Retorna quantidade de votos brancos.
+     * 
+     * @return Integer
+     * @throws SQLException
+     */
+    public int getWhiteVotesCount() throws SQLException {
+        Connection conn = dbmanager.getConnection();
+
+        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = 'WH';";
+        PreparedStatement statement = conn.prepareStatement(query);
+
+        ResultSet result = statement.executeQuery();
+        result.next();
+
+        int votes_count = result.getInt(1);
+
+        dbmanager.closePreparedStatement(statement);
+        dbmanager.closeResultSet(result);
+        return votes_count;
+    }
+
+    /**
+     * Retorna a porcentagem de votos que um candidato tem.
+     * 
+     * @param cargo
+     * @param inscricao_candidato
+     * @return Integer
+     * @throws SQLException
+     */
+    public int getVotePercentage(String cargo, int inscricao_candidato) throws SQLException {
+        double total_votes = getTotalVotesCount(cargo);
+        double votes_count = getVotesCount(inscricao_candidato);
+        int percentage = (int) (votes_count / total_votes * 100);
+        return percentage;
+    }
+
+    /**
+     * Retorna a porcentagem de votos brancos.
+     * 
+     * @param cargo
+     * @return Integer
+     * @throws SQLException
+     */
+    public int getWhiteVotePercentage(String cargo) throws SQLException {
+        double total_votes = getTotalVotesCount(cargo);
+        double votes_count = getWhiteVotesCount();
+        int percentage = (int) (votes_count / total_votes * 100);
+        return percentage;
     }
 }

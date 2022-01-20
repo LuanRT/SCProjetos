@@ -20,13 +20,13 @@ public class CargoDao {
     /**
      * Retrona a quantidade de cargos cadastrados no sistema.
      * 
-     * @return quantidade
+     * @return Integer
      * @throws SQLException
      */
     public int getCargosCount() throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Cargo";
+        String query = "SELECT COUNT(*) FROM Cargo WHERE Cargo.codCargo != 'WH';";
 
         PreparedStatement statement = conn.prepareStatement(query);
 
@@ -72,13 +72,13 @@ public class CargoDao {
     /**
      * Return todos os cargos disponiveis.
      * 
-     * @return
+     * @return List<Cargo>
      * @throws SQLException
      */
     public List<Cargo> getAllCargos() throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT * FROM Cargo WHERE";
+        String query = "SELECT * FROM Cargo WHERE Cargo.codCargo != 'WH';";
         PreparedStatement statement = conn.prepareStatement(query);
         ResultSet result = statement.executeQuery();
 

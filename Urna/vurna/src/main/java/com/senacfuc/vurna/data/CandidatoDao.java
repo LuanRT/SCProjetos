@@ -53,12 +53,13 @@ public class CandidatoDao {
      * @return List<Candidato>
      * @throws SQLException
      */
-    public List<Candidato> getAllCandidatos() throws SQLException {
+    public List<Candidato> getAllCandidatos(String cod_cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT * FROM Candidato";
+        String query = "SELECT * FROM Candidato WHERE Candidato.codCargo = ?";
 
         PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, cod_cargo);
         ResultSet result = statement.executeQuery();
 
         List<Candidato> candidatos = new ArrayList<Candidato>();

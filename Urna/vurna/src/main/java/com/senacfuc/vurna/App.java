@@ -8,7 +8,7 @@ import com.senacfuc.vurna.utils.DbManager;
 public class App {
     private static DbManager dbmanager;
     private static int splashscreen_duration = 3000;
-
+    
     public static void main(String[] args) {
         initDatabaseConn();
         initScreens();
