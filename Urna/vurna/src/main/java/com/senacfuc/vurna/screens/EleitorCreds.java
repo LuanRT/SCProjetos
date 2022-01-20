@@ -1,5 +1,7 @@
 package com.senacfuc.vurna.screens;
 
+import java.sql.SQLException;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +13,7 @@ import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import com.senacfuc.vurna.data.EleitorDao;
+import com.senacfuc.vurna.objs.Eleitor;
 import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
@@ -105,16 +108,19 @@ public class EleitorCreds extends JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         try {
             int inscricao = Integer.parseInt(inputAccessCode.getText());
-            
             EleitorDao ed = new EleitorDao(dbmanager);
             if (!ed.existe(inscricao)) {
                 inputAccessCode.setText("");
                 JOptionPane.showMessageDialog(rootPane, Constants.UNAUTHORIZED);
             } else {
-                // TODO: Implementar logica de autorizacao
+                Eleitor eleitor = ed.getEleitor(inscricao);
+
+                this.dispose();
+
+                MainScreen ms = new MainScreen(dbmanager, eleitor);
+                ms.init();
             }
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException e) {
             inputAccessCode.setText("");
             JOptionPane.showMessageDialog(rootPane, Constants.INVALID_INPUT);
         }

@@ -1,15 +1,10 @@
 package com.senacfuc.vurna.screens;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.GroupLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle;
-import javax.swing.WindowConstants;
 
 public class SplashScreen extends JFrame {
     private final int duration;
@@ -22,49 +17,49 @@ public class SplashScreen extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
-        jLabel3 = new JLabel();
+        titleLb = new javax.swing.JLabel();
+        footerTextCredits = new javax.swing.JLabel();
+        versionLb = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("VUrna Senac");
         setResizable(false);
 
-        jLabel1.setFont(new Font("Segoe UI Black", 0, 30)); // NOI18N
-        jLabel1.setText("VUrna");
+        titleLb.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        titleLb.setText("VUrna");
 
-        jLabel2.setFont(new Font("Segoe UI Symbol", 0, 10)); // NOI18N
-        jLabel2.setText("SenacProgramadores 2021-2022");
+        footerTextCredits.setFont(new java.awt.Font("Segoe UI Symbol", 0, 10)); // NOI18N
+        footerTextCredits.setText("By SenacDevs - 2021 / 2022");
 
-        jLabel3.setFont(new Font("Dialog", 0, 10)); // NOI18N
-        jLabel3.setText("v1.0.0");
+        versionLb.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        versionLb.setText("v1.0.0");
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
-                        .addComponent(jLabel3))
+                        .addComponent(footerTextCredits)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
+                        .addComponent(versionLb))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(titleLb)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addContainerGap(120, Short.MAX_VALUE)
+                .addComponent(titleLb)
+                .addGap(101, 101, 101)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(footerTextCredits, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(versionLb))
                 .addContainerGap())
         );
 
@@ -91,8 +86,8 @@ public class SplashScreen extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
+    private javax.swing.JLabel footerTextCredits;
+    private javax.swing.JLabel titleLb;
+    private javax.swing.JLabel versionLb;
     // End of variables declaration//GEN-END:variables
 }

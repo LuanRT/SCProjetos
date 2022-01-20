@@ -10,13 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
+import com.senacfuc.vurna.objs.Eleitor;
 import com.senacfuc.vurna.utils.DbManager;
 
 public class UrnaScreen extends JFrame {
     private String vote_number = "";
     private final DbManager dbmanager;
 
-    public UrnaScreen(DbManager dbmanager) {
+    public UrnaScreen(DbManager dbmanager, Eleitor eleitor) {
         this.dbmanager = dbmanager;
     }
 
