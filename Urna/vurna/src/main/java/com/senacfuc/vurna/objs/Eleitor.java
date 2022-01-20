@@ -5,28 +5,28 @@ public class Eleitor {
     private String nome;
 
     /**
-     * @return nome
+     * @return String
      */
     public String getNome() {
         return nome;
     }
 
     /**
-     * @param nome O nome do eleitor.
+     * @param nome 
      */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
     /**
-     * @param inscricao O numero de inscricao do eleitor.
+     * @param inscricao
      */
     public void setInscricao(int inscricao) {
         this.inscricao = inscricao;
     }
 
     /**
-     * @return inscricao
+     * @return Integer
      */
     public int getInscricao() {
         return inscricao;
