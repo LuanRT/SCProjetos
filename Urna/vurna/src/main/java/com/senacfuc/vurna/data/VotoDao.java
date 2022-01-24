@@ -17,8 +17,8 @@ public class VotoDao {
     /**
      * Registra o voto do eleitor.
      * 
-     * @param eleitor_inscricao Numero de inscricao do eleitor.
-     * @param candidato_inscricao Numero de inscricao do candidato.
+     * @param eleitor_inscricao
+     * @param candidato_inscricao
      * @throws SQLException
      */
     public void registerVote(int eleitor_inscricao, int candidato_inscricao) throws SQLException {
@@ -39,16 +39,18 @@ public class VotoDao {
     /**
      * Registra um voto como branco.
      * 
-     * @param eleitor_inscricao Numero de inscricao do eleitor.
+     * @param eleitor_inscricao 
+     * @param cargo
      * @throws SQLException
      */
-    public void registerVote(int eleitor_inscricao) throws SQLException {
+    public void registerVote(int eleitor_inscricao, String cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "INSERT INTO Voto (inscricaoEleitor) VALUES (?);";
+        String query = "INSERT INTO Voto (inscricaoEleitor, codCargo) VALUES (?, ?);";
 
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, eleitor_inscricao);
+        statement.setString(2, cargo);
         statement.executeUpdate();
 
         dbmanager.closePreparedStatement(statement);
@@ -63,7 +65,7 @@ public class VotoDao {
     public int getTotalVotesCount(String cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = ? AND Voto.codCargo != 'WH';";
+        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = ? AND Voto.inscricaoCandidato IS NOT NULL";
 
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(1, cargo);
@@ -82,7 +84,7 @@ public class VotoDao {
     /**
      * Retorna a quantidade de votos que um candidato recebeu.
      * 
-     * @param inscricao_candidato Numero de inscricao do candidato.
+     * @param inscricao_candidato
      * @return Integer
      * @throws SQLException
      */
@@ -109,11 +111,13 @@ public class VotoDao {
      * @return Integer
      * @throws SQLException
      */
-    public int getWhiteVotesCount() throws SQLException {
+    public int getWhiteVotesCount(String cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = 'WH';";
+        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.inscricaoCandidato IS NULL AND Voto.codCargo = ?;";
+       
         PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, cargo);
 
         ResultSet result = statement.executeQuery();
         result.next();
@@ -149,7 +153,7 @@ public class VotoDao {
      */
     public int getWhiteVotePercentage(String cargo) throws SQLException {
         double total_votes = getTotalVotesCount(cargo);
-        double votes_count = getWhiteVotesCount();
+        double votes_count = getWhiteVotesCount(cargo);
         int percentage = (int) (votes_count / total_votes * 100);
         return percentage;
     }

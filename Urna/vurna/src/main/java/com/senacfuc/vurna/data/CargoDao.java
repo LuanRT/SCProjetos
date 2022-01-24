@@ -26,7 +26,7 @@ public class CargoDao {
     public int getCargosCount() throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Cargo WHERE Cargo.codCargo != 'WH';";
+        String query = "SELECT COUNT(*) FROM Cargo;";
 
         PreparedStatement statement = conn.prepareStatement(query);
 
@@ -44,7 +44,7 @@ public class CargoDao {
     /**
      * Retorna o cargo.
      * 
-     * @param cargo_codigo Codigo do cargo.
+     * @param cargo_codigo
      * @return Cargo
      * @throws SQLException
      */
@@ -78,7 +78,7 @@ public class CargoDao {
     public List<Cargo> getAllCargos() throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT * FROM Cargo WHERE Cargo.codCargo != 'WH';";
+        String query = "SELECT * FROM Cargo;";
         PreparedStatement statement = conn.prepareStatement(query);
         ResultSet result = statement.executeQuery();
 

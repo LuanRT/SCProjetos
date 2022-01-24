@@ -1,8 +1,6 @@
 package com.senacfuc.vurna.screens;
 
 import java.awt.EventQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
@@ -13,7 +11,6 @@ public class SplashScreen extends JFrame {
         this.duration = duration;
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -79,7 +76,7 @@ public class SplashScreen extends JFrame {
         try {
             Thread.sleep(duration);
         } catch (InterruptedException ex) {
-            Logger.getLogger(SplashScreen.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
         }
         
         dispose();

@@ -2,11 +2,12 @@ package com.senacfuc.vurna.objs;
 
 public class Voto {
     private int inscricao_candidato, inscricao_eleitor;
+    private String cod_cargo;
 
     /**
      * @return Integer
      */
-    public int getInscricaCandidato() {
+    public int getInscricaoCandidato() {
         return inscricao_candidato;
     }
 
@@ -29,5 +30,19 @@ public class Voto {
      */
     public void setInscricaoEleitor(int inscricao_eleitor) {
         this.inscricao_eleitor = inscricao_eleitor;
+    }
+
+    /**
+     * @return String
+     */
+    public String getCodCargo() {
+        return cod_cargo;
+    }
+
+    /**
+     * @param cod_cargo
+     */
+    public void setCodCargo(String cod_cargo) {
+        this.cod_cargo = cod_cargo;
     }
 }

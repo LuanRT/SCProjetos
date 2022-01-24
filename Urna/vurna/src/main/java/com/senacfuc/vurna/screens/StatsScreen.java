@@ -18,18 +18,60 @@ import com.senacfuc.vurna.data.CandidatoDao;
 import com.senacfuc.vurna.data.CargoDao;
 import com.senacfuc.vurna.data.VotoDao;
 import com.senacfuc.vurna.objs.Candidato;
+import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
-public class InfoScreen extends javax.swing.JFrame {
+public class StatsScreen extends javax.swing.JFrame {
     private DbManager dbmanager;
     private String cargo;
 
-    public InfoScreen(DbManager dbmanager, String cargo) {
+    public StatsScreen(DbManager dbmanager, String cargo) {
         this.dbmanager = dbmanager;
         this.cargo = cargo;
     }
+
+    public void init() {
+        initComponents();
+        initStatistics();
+
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                setVisible(true);
+            }
+        });
+    }
+
+    private void initStatistics() {
+        try {
+            String[] cols = new String[] { Constants.CANDIDATO, Constants.INSCRICAO, Constants.VOTOS, Constants.PER };
+            DefaultTableModel dtm = new DefaultTableModel(cols, 0);
+
+            VotoDao vd = new VotoDao(dbmanager);
+            CandidatoDao cd = new CandidatoDao(dbmanager);
+
+            // Exibe o nome do cargo, contage de votos etc.
+            cargoName.setText(new CargoDao(dbmanager).getCargo(cargo).getNome());
+            voteCount.setText(vd.getTotalVotesCount(cargo) + "");
+            whiteVotesCount.setText(vd.getWhiteVotesCount(cargo) + " (" + vd.getWhiteVotesCount(cargo) + "%" + ")");
+
+            // Popula a tabela com as estatisticas.
+            List<Candidato> candidatos = cd.getAllCandidatos(cargo);
+            for (Candidato candidato : candidatos) {
+                Object[] data = new Object[] {
+                        candidato.getNome(),
+                        candidato.getInscricao(),
+                        vd.getVotesCount(candidato.getInscricao()),
+                        vd.getVotePercentage(cargo, candidato.getInscricao()) + "%"
+                };
+                dtm.addRow(data);
+            }
+
+            infoTable.setModel(dtm);
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
    
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -104,45 +146,6 @@ public class InfoScreen extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    public void init() {
-        initComponents();
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                setVisible(true);
-            }
-        });
-        
-        try {
-            String[] cols = new String[] { "Candidato", "Inscricao", "Votos", "%" };
-            DefaultTableModel dtm = new DefaultTableModel(cols, 0);
-
-            VotoDao vd = new VotoDao(dbmanager);
-            CandidatoDao cd = new CandidatoDao(dbmanager);
-            
-             // Exibe o nome do cargo, contage de votos etc.
-            cargoName.setText(new CargoDao(dbmanager).getCargo(cargo).getNome());
-            voteCount.setText(vd.getTotalVotesCount(cargo) + "");
-            whiteVotesCount.setText(vd.getWhiteVotesCount() + " (" + vd.getWhiteVotesCount() + "%" + ")");
-
-            // Popula a tabela com as estatisticas.
-            List<Candidato> candidatos = cd.getAllCandidatos(cargo); 
-            for (Candidato candidato : candidatos) {
-                Object[] data = new Object[]{
-                    candidato.getNome(),
-                    candidato.getInscricao(),
-                    vd.getVotesCount(candidato.getInscricao()), 
-                    vd.getVotePercentage(cargo, candidato.getInscricao()) + "%"
-                };
-                dtm.addRow(data);
-            }
-
-            infoTable.setModel(dtm);
-        } catch (SQLException e) {
-            System.err.println(e);
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel cargoName;

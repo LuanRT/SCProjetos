@@ -20,7 +20,7 @@ public class EleitorDao {
     /**
      * Retorna dados de um eleitor especifico.
      * 
-     * @param inscricao O numero da inscricao do eleitor.
+     * @param inscricao
      * @return Eleitor
      * @throws SQLException
      */
@@ -76,8 +76,8 @@ public class EleitorDao {
     /**
      * Verifica se o eleitor esta cadastrado na database.
      * 
-     * @param inscricao O numero de inscricao do eleitor.
-     * @return true | false
+     * @param inscricao
+     * @return Boolean
      * @throws SQLException
      */
     public boolean existe(int inscricao) throws SQLException {
@@ -100,10 +100,10 @@ public class EleitorDao {
     }
 
     /**
-     * Verifica se o eleitor ja votou.
+     * Verifica se o eleitor ja votou atraves de sua inscricao.
      * 
-     * @param inscricao O numero de inscricao do eleitor.
-     * @return true | false
+     * @param inscricao
+     * @return Boolean
      * @throws SQLException
      */
     public boolean jaVotou(int inscricao) throws SQLException {
@@ -129,13 +129,22 @@ public class EleitorDao {
         return voted;
     }
 
-    public boolean jaVotou(int inscricao_eleitor, int inscricao_candidato) throws SQLException {
+    /**
+     * Verifica se o eleitor ja tem voto em um cargo.
+     * 
+     * @param cargo
+     * @param inscricao_eleitor
+     * @return Boolean
+     * @throws SQLException
+     */
+    public boolean jaVotou(int inscricao_eleitor, String cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.inscricaoEleitor = ? AND Voto.inscricaoCandidato = ?";
+        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = ? AND Voto.inscricaoEleitor = ?;";
 
         PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, inscricao_eleitor);
+        statement.setString(1, cargo);
+        statement.setInt(2, inscricao_eleitor);
 
         ResultSet result = statement.executeQuery();
         result.next();

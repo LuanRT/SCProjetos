@@ -20,7 +20,7 @@ public class CandidatoDao {
     /**
      * Retorna um candidato.
      * 
-     * @param inscricao Numero de inscricao do candidato.
+     * @param inscricao
      * @return Candidato
      * @throws SQLException
      */
@@ -36,7 +36,7 @@ public class CandidatoDao {
         result.next();
 
         Candidato candidato = new Candidato();
-        candidato.setNome(result.getString("name"));
+        candidato.setNome(result.getString("nome"));
         candidato.setInscricao(result.getInt("inscricao"));
         candidato.setCodPartido(result.getString("codPartido"));
         candidato.setCodCargo(result.getString("codCargo"));
@@ -82,8 +82,8 @@ public class CandidatoDao {
     /**
      * Verifica se o candidato esta cadastrado na database.
      * 
-     * @param inscricao O numero de inscricao do eleitor.
-     * @return true | false
+     * @param inscricao
+     * @return Boolean
      * @throws SQLException
      */
     public boolean existe(int inscricao) throws SQLException {

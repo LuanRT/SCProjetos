@@ -1,6 +1,8 @@
 package com.senacfuc.vurna;
 
-import com.senacfuc.vurna.screens.EleitorCreds;
+import java.sql.SQLException;
+
+import com.senacfuc.vurna.screens.LoginScreen;
 import com.senacfuc.vurna.screens.SplashScreen;
 import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
@@ -23,7 +25,7 @@ public class App {
         ss.init();
 
         // Exibe a tela de login
-        EleitorCreds ec = new EleitorCreds(dbmanager);
+        LoginScreen ec = new LoginScreen(dbmanager);
         ec.init();
     }
 
@@ -34,8 +36,8 @@ public class App {
         try {
             dbmanager = new DbManager(Constants.URL, Constants.USER, Constants.PASSWORD); 
             dbmanager.connect();
-        } catch (Exception e) {
-            System.err.println("Could not connect to db: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Erro de conexao: " + e.getMessage());
         }
     }
 }

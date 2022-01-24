@@ -4,15 +4,15 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
+import javax.swing.JSeparator; 
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
@@ -28,7 +28,37 @@ public class CargosScreen extends javax.swing.JFrame {
         this.dbmanager = dbmanager;
     }
 
-    @SuppressWarnings("unchecked")
+    public void init() {
+        initComponents();
+        initList();
+        
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        });
+    }
+
+    /**
+     * Popula a lista com os cargos disponiveis.
+     */
+    private void initList() {
+        try {
+            CargoDao gd = new CargoDao(dbmanager);
+            DefaultListModel<String> dlm = new DefaultListModel<>();
+
+            cargos = gd.getAllCargos();
+            for (Cargo cargo : cargos) {
+                dlm.addElement(cargo.getNome());
+            }
+
+            cargosList.setModel(dlm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -89,38 +119,12 @@ public class CargosScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void init() {
-        initComponents();
-        
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                setVisible(true);
-            }
-        });
-
-        try {
-            // Popula a lista:
-            CargoDao gd = new CargoDao(dbmanager);
-            DefaultListModel<String> dlm = new DefaultListModel<>();
-
-            cargos = gd.getAllCargos();
-            for (Cargo cargo : cargos) {
-                dlm.addElement(cargo.getNome());
-            }
-
-            cargosList.setModel(dlm);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     private void cargosListMouseClicked(MouseEvent evt) {//GEN-FIRST:event_cargosListMouseClicked
-        JList list = (JList) evt.getSource();
+        JList<?> list = (JList<?>) evt.getSource();
 
         if (evt.getClickCount() == 2) {
             int row = list.locationToIndex(evt.getPoint());
-            new InfoScreen(dbmanager, cargos.get(row).getCodCargo()).init();
+            new StatsScreen(dbmanager, cargos.get(row).getCodCargo()).init();
         }
     }//GEN-LAST:event_cargosListMouseClicked
 

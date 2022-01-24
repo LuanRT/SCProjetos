@@ -1,5 +1,7 @@
 package com.senacfuc.vurna.screens;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
@@ -17,74 +19,73 @@ import com.senacfuc.vurna.objs.Eleitor;
 import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
-public class EleitorCreds extends JFrame {
-
-    private final boolean is_logged_in = false;
+public class LoginScreen extends JFrame {
     private final DbManager dbmanager;
 
-    public EleitorCreds(DbManager dbmanager) {
+    public LoginScreen(DbManager dbmanager) {
         this.dbmanager = dbmanager;
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         inputAccessCode = new JTextField();
-        tipText = new JLabel();
         loginBtn = new JButton();
         jSeparator1 = new JSeparator();
+        jLabel1 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
 
-        inputAccessCode.setToolTipText("codetitle");
-        inputAccessCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        inputAccessCode.setToolTipText("");
+        inputAccessCode.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 inputAccessCodeActionPerformed(evt);
             }
         });
 
-        tipText.setFont(new java.awt.Font("Ebrima", 0, 14)); // NOI18N
-        tipText.setText("Por favor, digite a sua inscrição:");
-
         loginBtn.setText("Entrar");
         loginBtn.setFocusPainted(false);
-        loginBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        loginBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 loginBtnActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setText("Por favor, digite sua inscrição");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tipText, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inputAccessCode)
-                    .addComponent(loginBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(119, Short.MAX_VALUE))
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inputAccessCode)
+                    .addComponent(loginBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(jLabel1)
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
-                .addComponent(tipText, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputAccessCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,11 +102,11 @@ public class EleitorCreds extends JFrame {
         });
     }
 
-    private void inputAccessCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputAccessCodeActionPerformed
+    private void inputAccessCodeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_inputAccessCodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputAccessCodeActionPerformed
 
-    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+    private void loginBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         try {
             int inscricao = Integer.parseInt(inputAccessCode.getText());
             EleitorDao ed = new EleitorDao(dbmanager);
@@ -120,7 +121,7 @@ public class EleitorCreds extends JFrame {
                 MainScreen ms = new MainScreen(dbmanager, eleitor);
                 ms.init();
             }
-        } catch (SQLException e) {
+        } catch (NumberFormatException | SQLException e) {
             inputAccessCode.setText("");
             JOptionPane.showMessageDialog(rootPane, Constants.INVALID_INPUT);
         }
@@ -128,8 +129,8 @@ public class EleitorCreds extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JTextField inputAccessCode;
+    private JLabel jLabel1;
     private JSeparator jSeparator1;
     private JButton loginBtn;
-    private JLabel tipText;
     // End of variables declaration//GEN-END:variables
 }
