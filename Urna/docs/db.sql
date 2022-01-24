@@ -1,4 +1,5 @@
 -- Cria o db da urna.
+DROP SCHEMA urnadb;
 CREATE SCHEMA IF NOT EXISTS urnadb;
 USE urnadb;
 
@@ -51,8 +52,8 @@ CREATE TABLE IF NOT EXISTS Candidato (
 CREATE TABLE IF NOT EXISTS Voto (
   `inscricaoCandidato` INT,
   `inscricaoEleitor` INT NOT NULL,
+  `codCargo` VARCHAR(10),
   INDEX `inscricao_idx` (`inscricaoCandidato` ASC) VISIBLE,
-  PRIMARY KEY (`inscricaoEleitor`, `inscricaoCandidato`),
   CONSTRAINT `inscricao`
     FOREIGN KEY (`inscricaoCandidato`)
     REFERENCES `Candidato` (`inscricao`)
@@ -62,5 +63,36 @@ CREATE TABLE IF NOT EXISTS Voto (
     FOREIGN KEY (`inscricaoEleitor`)
     REFERENCES `Eleitor` (`inscricao`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Voto_Cargo`
+    FOREIGN KEY (`codCargo`)
+    REFERENCES `Cargo` (`codCargo`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+
+-- Dados demo:
+
+INSERT INTO Eleitor (inscricao, nome) VALUES (123456, "Luan Torquato");
+INSERT INTO Eleitor (inscricao, nome) VALUES (112233, "Breno");
+INSERT INTO Eleitor (inscricao, nome) VALUES (223344, "Daniel");
+
+INSERT INTO Cargo (codCargo, nome) VALUES ('pre', 'Presidente');
+INSERT INTO Cargo (codCargo, nome) VALUES ('gov', 'Governador');
+INSERT INTO Cargo (codCargo, nome) VALUES ('sen', 'Senador');
+
+INSERT INTO Partido (codPartido, nome) VALUES ('ptb', 'Partido Trabalhista Brasileiro');
+INSERT INTO Partido (codPartido, nome) VALUES ('pv', 'Partido Verde');
+INSERT INTO Partido (codPartido, nome) VALUES ('pp', 'Progressistas');
+
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (11, 'Carol', 'pre', 'pp');
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (22, 'Roger', 'pre', 'pv');
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (33, 'Kevin', 'pre', 'ptb');
+
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (111, 'Ana', 'gov', 'pp');
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (222, 'Thiago', 'gov', 'pv');
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (333, 'Mary', 'gov', 'ptb');
+
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (1111, 'Robert', 'sen', 'pp');
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (2222, 'Adriana', 'sen', 'pv');
+INSERT INTO Candidato (inscricao, nome, codCargo, codPartido) VALUES (3333, 'Peter', 'sen', 'ptb');
