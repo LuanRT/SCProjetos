@@ -73,9 +73,15 @@ CREATE TABLE IF NOT EXISTS Voto (
 
 -- Dados demo:
 
+-- Admin do sistema
+INSERT INTO Eleitor (inscricao, nome) VALUES (010203, "Administrador");
+
 INSERT INTO Eleitor (inscricao, nome) VALUES (123456, "Luan Torquato");
 INSERT INTO Eleitor (inscricao, nome) VALUES (112233, "Breno");
 INSERT INTO Eleitor (inscricao, nome) VALUES (223344, "Daniel");
+INSERT INTO Eleitor (inscricao, nome) VALUES (334455, "Lucas");
+INSERT INTO Eleitor (inscricao, nome) VALUES (445566, "Joe");
+INSERT INTO Eleitor (inscricao, nome) VALUES (556677, "Andrew");
 
 INSERT INTO Cargo (codCargo, nome) VALUES ('pre', 'Presidente');
 INSERT INTO Cargo (codCargo, nome) VALUES ('gov', 'Governador');

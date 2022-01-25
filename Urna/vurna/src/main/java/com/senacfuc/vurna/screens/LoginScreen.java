@@ -1,5 +1,6 @@
 package com.senacfuc.vurna.screens;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -25,6 +26,16 @@ public class LoginScreen extends JFrame {
     public LoginScreen(DbManager dbmanager) {
         this.dbmanager = dbmanager;
     }
+ 
+    public void init() {
+        initComponents();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        });
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,13 +48,6 @@ public class LoginScreen extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
-
-        inputAccessCode.setToolTipText("");
-        inputAccessCode.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                inputAccessCodeActionPerformed(evt);
-            }
-        });
 
         loginBtn.setText("Entrar");
         loginBtn.setFocusPainted(false);
@@ -92,19 +96,7 @@ public class LoginScreen extends JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void init() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                initComponents();
-                setVisible(true);
-            }
-        });
-    }
-
-    private void inputAccessCodeActionPerformed(ActionEvent evt) {//GEN-FIRST:event_inputAccessCodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputAccessCodeActionPerformed
+   
 
     private void loginBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         try {
@@ -112,18 +104,18 @@ public class LoginScreen extends JFrame {
             EleitorDao ed = new EleitorDao(dbmanager);
             if (!ed.existe(inscricao)) {
                 inputAccessCode.setText("");
-                JOptionPane.showMessageDialog(rootPane, Constants.UNAUTHORIZED);
+                JOptionPane.showMessageDialog(rootPane, Constants.UNAUTHORIZED, Constants.INFO, JOptionPane.INFORMATION_MESSAGE);
             } else {
-                Eleitor eleitor = ed.getEleitor(inscricao);
-
                 this.dispose();
 
+                Eleitor eleitor = ed.getEleitor(inscricao);
                 MainScreen ms = new MainScreen(dbmanager, eleitor);
+                
                 ms.init();
             }
         } catch (NumberFormatException | SQLException e) {
             inputAccessCode.setText("");
-            JOptionPane.showMessageDialog(rootPane, Constants.INVALID_INPUT);
+            JOptionPane.showMessageDialog(rootPane, Constants.INVALID_INPUT, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 

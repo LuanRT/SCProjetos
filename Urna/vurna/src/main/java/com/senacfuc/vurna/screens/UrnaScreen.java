@@ -35,14 +35,17 @@ import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
 public class UrnaScreen extends JFrame {
-    private String inscricao = ""; 
-    private DbManager dbmanager;
-    private Eleitor eleitor;
-    private List<Cargo> cargos;
-    private List<Voto> vote_queue;
-    private Cargo current_cargo;
+    private String inscricao = "";
     private int cargo_counter = 0;
 
+    private DbManager dbmanager;
+    private Eleitor eleitor;
+
+    private Cargo current_cargo;
+    private List<Cargo> cargos;
+    private List<Voto> vote_queue;
+
+    
     public UrnaScreen(DbManager dbmanager, Eleitor eleitor) {
         this.dbmanager = dbmanager;
         this.eleitor = eleitor;
@@ -64,12 +67,13 @@ public class UrnaScreen extends JFrame {
         try {
             CargoDao cd = new CargoDao(dbmanager);
             cargos = cd.getAllCargos();
+
             current_cargo = cargos.get(cargo_counter);
             vote_queue = new ArrayList<>();
 
             lbPosition.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR);
+            JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -109,7 +113,7 @@ public class UrnaScreen extends JFrame {
                 nextCargo();
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR);
+            JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -140,9 +144,11 @@ public class UrnaScreen extends JFrame {
                     vd.registerVote(voto.getInscricaoEleitor(), voto.getInscricaoCandidato());
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR);
+                JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
             }
         }
+        
+        JOptionPane.showMessageDialog(rootPane, Constants.END, Constants.INFO, JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }
 
@@ -164,7 +170,7 @@ public class UrnaScreen extends JFrame {
         try {
             CandidatoDao cd = new CandidatoDao(dbmanager);
             int inscricao_number = Integer.parseInt(inscricao);
-            if (cd.existe(inscricao_number)) {
+            if (cd.existe(inscricao_number) && cd.getCandidato(inscricao_number).getCodCargo().equals(current_cargo.getCodCargo())) {
                 Candidato candidato = cd.getCandidato(inscricao_number);
                 lbName.setText(candidato.getNome() + " - " + candidato.getCodPartido().toUpperCase());
             } else {
@@ -494,6 +500,12 @@ public class UrnaScreen extends JFrame {
 
     private void btnConfirmMousePressed(MouseEvent evt) {// GEN-FIRST:event_btnConfirmMousePressed
         try {
+
+            if (lbNumber.getText().length() == 0) {
+                JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_4, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             CandidatoDao cd = new CandidatoDao(dbmanager);
             int inscricao_number = Integer.parseInt(inscricao);
 
@@ -502,16 +514,16 @@ public class UrnaScreen extends JFrame {
                 if (candidato.getCodCargo().equals(current_cargo.getCodCargo())) {
                     validateAndEnqueueVote(candidato);
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_1.replace("{cargo}", current_cargo.getNome()));            
+                    JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_1.replace("{cargo}", current_cargo.getNome()), Constants.INFO, JOptionPane.INFORMATION_MESSAGE);            
                     resetFields();
                 }
             } else {
-                JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_2);
+                JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_2, Constants.INVALID_C, JOptionPane.ERROR_MESSAGE);
                 resetFields();
             }
         } catch (NumberFormatException | SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_3);
+            JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_3, Constants.VERIFICATION_ERROR, JOptionPane.ERROR_MESSAGE);
         }
     }// GEN-LAST:event_btnConfirmMousePressed
 

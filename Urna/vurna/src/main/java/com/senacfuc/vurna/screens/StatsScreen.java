@@ -35,6 +35,7 @@ public class StatsScreen extends javax.swing.JFrame {
         initStatistics();
 
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 setVisible(true);
             }
@@ -52,7 +53,7 @@ public class StatsScreen extends javax.swing.JFrame {
             // Exibe o nome do cargo, contage de votos etc.
             cargoName.setText(new CargoDao(dbmanager).getCargo(cargo).getNome());
             voteCount.setText(vd.getTotalVotesCount(cargo) + "");
-            whiteVotesCount.setText(vd.getWhiteVotesCount(cargo) + " (" + vd.getWhiteVotesCount(cargo) + "%" + ")");
+            whiteVotesCount.setText(vd.getWhiteVotesCount(cargo) + " (" + vd.getWhiteVotePercentage(cargo) + "%" + ")");
 
             // Popula a tabela com as estatisticas.
             List<Candidato> candidatos = cd.getAllCandidatos(cargo);
@@ -87,6 +88,7 @@ public class StatsScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estatísticas");
         setResizable(false);
+        setType(Type.POPUP);
 
         cargoName.setFont(new Font("Dialog", 1, 18)); // NOI18N
         cargoName.setText("Cargo");

@@ -21,12 +21,12 @@ public class App {
      */
     private static void initScreens() {
         // Exibe a SplashScreen
-        SplashScreen ss = new SplashScreen(splashscreen_duration);
-        ss.init();
+        SplashScreen splash_screen = new SplashScreen(splashscreen_duration);
+        splash_screen.init();
 
         // Exibe a tela de login
-        LoginScreen ec = new LoginScreen(dbmanager);
-        ec.init();
+        LoginScreen login_screen = new LoginScreen(dbmanager);
+        login_screen.init();
     }
 
     /**
@@ -36,8 +36,9 @@ public class App {
         try {
             dbmanager = new DbManager(Constants.URL, Constants.USER, Constants.PASSWORD); 
             dbmanager.connect();
+            
         } catch (SQLException e) {
-            System.err.println("Erro de conexao: " + e.getMessage());
+            System.out.println("Nao foi possivel se conectar a database: " + e.getMessage());
         }
     }
 }

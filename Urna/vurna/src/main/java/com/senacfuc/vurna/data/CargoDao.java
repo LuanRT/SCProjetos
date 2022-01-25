@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import com.senacfuc.vurna.objs.Candidato;
 import com.senacfuc.vurna.objs.Cargo;
 import com.senacfuc.vurna.utils.DbManager;
 
@@ -72,7 +75,7 @@ public class CargoDao {
     /**
      * Return todos os cargos disponiveis.
      * 
-     * @return List<Cargo>
+     * @return ArrayList<Cargo>
      * @throws SQLException
      */
     public List<Cargo> getAllCargos() throws SQLException {
@@ -82,13 +85,39 @@ public class CargoDao {
         PreparedStatement statement = conn.prepareStatement(query);
         ResultSet result = statement.executeQuery();
 
-        List<Cargo> cargos = new ArrayList<Cargo>();
+        ArrayList<Cargo> cargos = new ArrayList<Cargo>();
         while (result.next()) {
             Cargo cargo = new Cargo();
             cargo.setNome(result.getString("nome"));
             cargo.setCodCargo(result.getString("codCargo"));
             cargos.add(cargo);
         }
+
+        // Organiza a lista.
+        Collections.sort(cargos, new Comparator<Cargo>() {
+            private Candidato candidato_o1;
+            private Candidato candidato_o2;
+
+            @Override
+            public int compare(Cargo o1, Cargo o2) {
+                // Pega o primeiro candidato da lista para fazer comparacao de inscricoes.
+                try {
+                    candidato_o1 = new CandidatoDao(dbmanager)
+                            .getAllCandidatos(o1.getCodCargo()).get(0);
+                    candidato_o2 = new CandidatoDao(dbmanager)
+                            .getAllCandidatos(o2.getCodCargo()).get(0);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                /** 
+                * Compara as inscricoes dos candidatos, assim o cargo que tem candidatos 
+                * com inscricoes de menos digitos sao postos no top da lista.
+                */
+                return Integer.toString(candidato_o1.getInscricao()).length()
+                        - Integer.toString(candidato_o2.getInscricao()).length();
+            }
+        });
 
         dbmanager.closePreparedStatement(statement);
         dbmanager.closeResultSet(result);

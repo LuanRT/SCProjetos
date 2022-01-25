@@ -7,6 +7,9 @@ public class Constants {
             USER = "root",
             PASSWORD = "root",
 
+            // System admin
+            ADMIN = "010203",
+
             // Login
             UNAUTHORIZED = "Parece que você não pode participar dessa votação!\nEntre em contato com os organizadores e tente novamente.",
             INVALID_INPUT = "Invalido, somente valores números são aceitos!",
@@ -19,6 +22,10 @@ public class Constants {
             INSCRICAO = "Inscrição",
             VOTOS = "Votos",
             PER = "%",
+            
+            // UsersScreen
+            ELEITOR = "Eleitor",
+            VOTOU = "Votou",
 
             // Urna 
             VOTE_TIP_1 = "Seu voto para {cargo}",
@@ -28,7 +35,14 @@ public class Constants {
             VOTE_ERR_1 = "Este candidato não pertence ao cargo de {cargo}!",
             VOTE_ERR_2 = "Este candidato não existe!",
             VOTE_ERR_3 = "Não foi possível verificar o seu voto.",
+            VOTE_ERR_4 = "Digite o número do candidato no qual deseja votar ou clique em \"Branco\"\ncaso queira registrar seu voto como branco.",
             
-            DB_ERR = "Não foi possível se conectar a database.";
+            DB_ERR = "Não foi possível se conectar a database.",
+            END = "FIM",
 
+            // Dialogs
+            ERROR = "Erro",
+            INFO = "Info",
+            INVALID_C = "Candidato invalido",
+            VERIFICATION_ERROR = "Erro de verificação";
 }

@@ -11,6 +11,24 @@ public class SplashScreen extends JFrame {
         this.duration = duration;
     }
 
+    public void init() {
+        initComponents();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                setVisible(true);
+            }
+        });
+
+        try {
+            Thread.sleep(duration);
+        } catch (InterruptedException ex) {
+            System.err.println(ex);
+        }
+
+        dispose();
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -63,24 +81,6 @@ public class SplashScreen extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    public void init() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-               initComponents();
-               setVisible(true);
-            }
-        });
-        
-        try {
-            Thread.sleep(duration);
-        } catch (InterruptedException ex) {
-            System.err.println(ex);
-        }
-        
-        dispose();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel footerTextCredits;

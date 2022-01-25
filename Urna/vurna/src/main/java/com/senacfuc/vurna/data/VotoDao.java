@@ -52,6 +52,7 @@ public class VotoDao {
         statement.setInt(1, eleitor_inscricao);
         statement.setString(2, cargo);
         statement.executeUpdate();
+        
 
         dbmanager.closePreparedStatement(statement);
     }
@@ -65,7 +66,7 @@ public class VotoDao {
     public int getTotalVotesCount(String cargo) throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = ? AND Voto.inscricaoCandidato IS NOT NULL";
+        String query = "SELECT COUNT(*) FROM Voto WHERE Voto.codCargo = ?;";
 
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(1, cargo);

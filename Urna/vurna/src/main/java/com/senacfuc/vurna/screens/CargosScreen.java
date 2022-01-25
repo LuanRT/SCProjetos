@@ -12,26 +12,33 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator; 
+import javax.swing.JSeparator;
 import javax.swing.LayoutStyle;
 import javax.swing.WindowConstants;
 
 import com.senacfuc.vurna.data.CargoDao;
 import com.senacfuc.vurna.objs.Cargo;
 import com.senacfuc.vurna.utils.DbManager;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class CargosScreen extends javax.swing.JFrame {
+
     private DbManager dbmanager;
     private List<Cargo> cargos;
+    private List<StatsScreen> stat_screens;
 
     public CargosScreen(DbManager dbmanager) {
         this.dbmanager = dbmanager;
     }
 
     public void init() {
+        stat_screens = new ArrayList<>();
+        
         initComponents();
         initList();
-        
+
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -71,6 +78,11 @@ public class CargosScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VUrna - Cargos");
         setResizable(false);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         cargosLb.setFont(new Font("Dialog", 1, 20)); // NOI18N
         cargosLb.setText("Cargos");
@@ -124,9 +136,18 @@ public class CargosScreen extends javax.swing.JFrame {
 
         if (evt.getClickCount() == 2) {
             int row = list.locationToIndex(evt.getPoint());
-            new StatsScreen(dbmanager, cargos.get(row).getCodCargo()).init();
+            StatsScreen ss = new StatsScreen(dbmanager, cargos.get(row).getCodCargo());
+            ss.init();
+
+            stat_screens.add(ss);
         }
     }//GEN-LAST:event_cargosListMouseClicked
+
+    private void formWindowClosed(WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        for (StatsScreen ss : stat_screens) {
+            ss.dispose();
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel cargosLb;
