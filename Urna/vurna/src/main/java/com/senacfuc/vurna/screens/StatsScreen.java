@@ -22,8 +22,8 @@ import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
 public class StatsScreen extends javax.swing.JFrame {
-    private DbManager dbmanager;
-    private String cargo;
+    private final DbManager dbmanager;
+    private final String cargo;
 
     public StatsScreen(DbManager dbmanager, String cargo) {
         this.dbmanager = dbmanager;
@@ -41,10 +41,10 @@ public class StatsScreen extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void initStatistics() {
         try {
-            String[] cols = new String[] { Constants.CANDIDATO, Constants.INSCRICAO, Constants.VOTOS, Constants.PER };
+            String[] cols = new String[] { Constants.CANDIDATO, Constants.INSCRICAO, Constants.PARTIDO, Constants.VOTOS, Constants.PER };
             DefaultTableModel dtm = new DefaultTableModel(cols, 0);
 
             VotoDao vd = new VotoDao(dbmanager);
@@ -61,6 +61,7 @@ public class StatsScreen extends javax.swing.JFrame {
                 Object[] data = new Object[] {
                         candidato.getNome(),
                         candidato.getInscricao(),
+                        candidato.getCodPartido(),
                         vd.getVotesCount(candidato.getInscricao()),
                         vd.getVotePercentage(cargo, candidato.getInscricao()) + "%"
                 };

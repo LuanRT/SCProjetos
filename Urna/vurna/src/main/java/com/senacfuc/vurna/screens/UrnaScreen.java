@@ -35,17 +35,16 @@ import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
 public class UrnaScreen extends JFrame {
+    private final DbManager dbmanager;
+    private final Eleitor eleitor;
+
     private String inscricao = "";
     private int cargo_counter = 0;
-
-    private DbManager dbmanager;
-    private Eleitor eleitor;
 
     private Cargo current_cargo;
     private List<Cargo> cargos;
     private List<Voto> vote_queue;
 
-    
     public UrnaScreen(DbManager dbmanager, Eleitor eleitor) {
         this.dbmanager = dbmanager;
         this.eleitor = eleitor;
@@ -54,7 +53,7 @@ public class UrnaScreen extends JFrame {
     public void init() {
         initComponents();
         initVotacao();
-        
+
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -72,6 +71,7 @@ public class UrnaScreen extends JFrame {
             vote_queue = new ArrayList<>();
 
             lbPosition.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
+            seeAvailableRolesBtn.setText(Constants.CANDIDATOS_LIST.replace("{cargo}", current_cargo.getNome()));
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
         }
@@ -79,7 +79,7 @@ public class UrnaScreen extends JFrame {
 
     /**
      * Valida o voto, adiciona a uma fila de espera e pula para o proximo cargo.
-     * 
+     *
      * @param candidato
      */
     private void validateAndEnqueueVote(Candidato candidato) {
@@ -91,7 +91,7 @@ public class UrnaScreen extends JFrame {
                 voto.setInscricaoCandidato(0);
                 voto.setCodCargo(current_cargo.getCodCargo());
                 vote_queue.add(voto);
-                
+
                 nextCargo();
                 return;
             }
@@ -118,7 +118,8 @@ public class UrnaScreen extends JFrame {
     }
 
     /**
-     * Pula para o proximo cargo, ao chegar no ultimo cargo finaliza & processa a votacao.
+     * Pula para o proximo cargo, ao chegar no ultimo cargo finaliza & processa
+     * a votacao.
      */
     private void nextCargo() {
         cargo_counter += 1;
@@ -127,6 +128,7 @@ public class UrnaScreen extends JFrame {
         } else {
             current_cargo = cargos.get(cargo_counter);
             lbPosition.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
+            seeAvailableRolesBtn.setText(Constants.CANDIDATOS_LIST.replace("{cargo}", current_cargo.getNome()));
             resetFields();
         }
     }
@@ -147,7 +149,7 @@ public class UrnaScreen extends JFrame {
                 JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         JOptionPane.showMessageDialog(rootPane, Constants.END, Constants.INFO, JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }
@@ -159,6 +161,7 @@ public class UrnaScreen extends JFrame {
         inscricao = "";
         lbName.setText("");
         lbNumber.setText("");
+        lbPhoto.setIcon(new ImageIcon(getClass().getResource("/com/senacfuc/vurna/screens/pp/profile.png")));
     }
 
     /**
@@ -173,8 +176,10 @@ public class UrnaScreen extends JFrame {
             if (cd.existe(inscricao_number) && cd.getCandidato(inscricao_number).getCodCargo().equals(current_cargo.getCodCargo())) {
                 Candidato candidato = cd.getCandidato(inscricao_number);
                 lbName.setText(candidato.getNome() + " - " + candidato.getCodPartido().toUpperCase());
+                lbPhoto.setIcon(new ImageIcon(getClass().getResource("/com/senacfuc/vurna/screens/pp/" + candidato.getInscricao() + ".png")));
             } else {
                 lbName.setText("");
+                lbPhoto.setIcon(new ImageIcon(getClass().getResource("/com/senacfuc/vurna/screens/pp/profile.png")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -199,12 +204,12 @@ public class UrnaScreen extends JFrame {
         btnWhite = new JButton();
         btnFix = new JButton();
         btnConfirm = new JButton();
+        seeAvailableRolesBtn = new JButton();
         lbName = new JLabel();
         lbNumber = new JLabel();
         lbPosition = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
         setBackground(new Color(51, 51, 51));
         setResizable(false);
 
@@ -369,14 +374,24 @@ public class UrnaScreen extends JFrame {
         });
 
         btnConfirm.setBackground(new Color(0, 153, 51));
-        btnConfirm.setFont(new Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        btnConfirm.setFont(new Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnConfirm.setForeground(new Color(0, 0, 0));
         btnConfirm.setText("Confirma");
         btnConfirm.setFocusPainted(false);
         btnConfirm.addMouseListener(new MouseAdapter() {
-            @Override
             public void mousePressed(MouseEvent evt) {
                 btnConfirmMousePressed(evt);
+            }
+        });
+
+        seeAvailableRolesBtn.setBackground(new Color(51, 51, 51));
+        seeAvailableRolesBtn.setFont(new Font("Dialog", 1, 11)); // NOI18N
+        seeAvailableRolesBtn.setForeground(new Color(255, 255, 255));
+        seeAvailableRolesBtn.setText("Ver candidatos disponíveis para {cargo}");
+        seeAvailableRolesBtn.setFocusPainted(false);
+        seeAvailableRolesBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                seeAvailableRolesBtnActionPerformed(evt);
             }
         });
 
@@ -403,13 +418,16 @@ public class UrnaScreen extends JFrame {
                             .addComponent(btnThree, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSix, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNine, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnWhite, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnFix, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConfirm, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnConfirm, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(seeAvailableRolesBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -438,7 +456,9 @@ public class UrnaScreen extends JFrame {
                         .addComponent(btnWhite, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnFix, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnConfirm, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(seeAvailableRolesBtn, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         lbName.setFont(new Font("Segoe UI", 0, 14)); // NOI18N
@@ -476,9 +496,6 @@ public class UrnaScreen extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(lbPosition)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -486,8 +503,11 @@ public class UrnaScreen extends JFrame {
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbPhoto, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lbName, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(lbName, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -495,7 +515,7 @@ public class UrnaScreen extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFixActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnFixActionPerformed
-       resetFields();
+        resetFields();
     }//GEN-LAST:event_btnFixActionPerformed
 
     private void btnConfirmMousePressed(MouseEvent evt) {// GEN-FIRST:event_btnConfirmMousePressed
@@ -514,7 +534,7 @@ public class UrnaScreen extends JFrame {
                 if (candidato.getCodCargo().equals(current_cargo.getCodCargo())) {
                     validateAndEnqueueVote(candidato);
                 } else {
-                    JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_1.replace("{cargo}", current_cargo.getNome()), Constants.INFO, JOptionPane.INFORMATION_MESSAGE);            
+                    JOptionPane.showMessageDialog(rootPane, Constants.VOTE_ERR_1.replace("{cargo}", current_cargo.getNome()), Constants.INFO, JOptionPane.INFORMATION_MESSAGE);
                     resetFields();
                 }
             } else {
@@ -558,8 +578,8 @@ public class UrnaScreen extends JFrame {
     }//GEN-LAST:event_btnFourActionPerformed
 
      private void btnFiveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnFiveActionPerformed
-        inscricao += "5";
-        updateFields();
+         inscricao += "5";
+         updateFields();
     }//GEN-LAST:event_btnFiveActionPerformed
 
     private void btnSixActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSixActionPerformed
@@ -583,6 +603,11 @@ public class UrnaScreen extends JFrame {
         updateFields();
     }//GEN-LAST:event_btnNineActionPerformed
 
+    private void seeAvailableRolesBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_seeAvailableRolesBtnActionPerformed
+        CandidatosScreen cs = new CandidatosScreen(dbmanager, current_cargo.getCodCargo());
+        cs.init();
+    }//GEN-LAST:event_seeAvailableRolesBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnConfirm;
     private JButton btnEight;
@@ -602,5 +627,6 @@ public class UrnaScreen extends JFrame {
     private JLabel lbNumber;
     private JLabel lbPhoto;
     private JLabel lbPosition;
+    private JButton seeAvailableRolesBtn;
     // End of variables declaration//GEN-END:variables
 }

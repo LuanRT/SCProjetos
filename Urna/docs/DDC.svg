@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="580.0" height="360.0" viewBox="30.0 450.0 580.0 360.0" version="1.1">
+<rect x="30.0" y="450.0" width="580.0" height="360.0" fill="rgb(255,255,255)"/>
+<g id="g83160126">
+<rect id="s253186170" x="240.0" y="480.0" width="159.99998" height="120.0" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="23.999975" ry="23.999975"/>
+<path id="s265199659" d="M 240.00002,515.99994 399.99997,515.99994 " fill="none" stroke-width="2.0" stroke="rgb(0,0,0)"/>
+</g>
+<g id="g159950558">
+<polygon id="s220964385" points="259.99997,480.00003 360.0,480.00003 360.00006,520.0 259.99997,520.0 " fill="none"/>
+<g id="t159950558">
+<text xml:space="preserve" x="277.5" y="505.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Candidato</text>
+</g>
+</g>
+<g id="g209439">
+<polygon id="s112851526" points="240.00002,520.0 400.00003,520.0 399.99994,540.0 240.00002,540.0 " fill="none"/>
+<g id="t209439">
+<text xml:space="preserve" x="265.00003" y="535.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Inscricao : Integer</text>
+</g>
+</g>
+<g id="g265103016">
+<polygon id="s261428231" points="260.00003,539.9999 379.99997,539.9999 380.00003,559.9998 260.00003,559.9998 " fill="none"/>
+<g id="t265103016">
+<text xml:space="preserve" x="279.50003" y="555.496" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">nome : String</text>
+</g>
+</g>
+<g id="g15870477">
+<polygon id="s50190644" points="240.00002,559.9999 399.99994,559.9999 400.00003,579.9999 240.00002,579.9999 " fill="none"/>
+<g id="t15870477">
+<text xml:space="preserve" x="266.50003" y="575.496" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">codCargo : String</text>
+</g>
+</g>
+<g id="g17236765">
+<polygon id="s8094557" points="240.00002,579.99976 400.00003,579.99976 399.9999,599.99976 240.00002,599.99976 " fill="none"/>
+<g id="t17236765">
+<text xml:space="preserve" x="262.50003" y="595.49585" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">codPartido : String</text>
+</g>
+</g>
+<g id="g39143373">
+<rect id="s227243218" x="240.0" y="599.9999" width="159.99998" height="20.0" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="10.0" ry="10.0"/>
+<g id="t39143373">
+<text xml:space="preserve" x="267.5" y="615.496" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Getters &amp; Setters</text>
+</g>
+</g>
+<g id="g254370467">
+<rect id="s241494435" x="60.000053" y="480.0" width="139.99995" height="100.00015" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="20.00003" ry="20.00003"/>
+<path id="s121197728" d="M 60.00006,509.99997 200.00002,509.99997 " fill="none" stroke-width="2.0" stroke="rgb(0,0,0)"/>
+</g>
+<g id="g230611360">
+<polygon id="s250738777" points="80.00006,479.99997 180.00002,479.99997 180.00002,520.0 80.00006,519.9999 " fill="none"/>
+<g id="t230611360">
+<text xml:space="preserve" x="110.50003" y="505.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Eleitor</text>
+</g>
+</g>
+<g id="g38902105">
+<polygon id="s76024862" points="60.00006,520.0 200.00014,520.0 200.00002,540.0 60.00006,540.0 " fill="none"/>
+<g id="t38902105">
+<text xml:space="preserve" x="75.00009" y="535.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Inscricao : Integer</text>
+</g>
+</g>
+<g id="g223189278">
+<polygon id="s248675583" points="80.00006,540.0 180.00014,540.0 180.00002,560.0001 80.00006,560.0001 " fill="none"/>
+<g id="t223189278">
+<text xml:space="preserve" x="89.50009" y="555.49615" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">nome : String</text>
+</g>
+</g>
+<g id="g256001000">
+<rect id="s233773772" x="219.99991" y="660.0" width="199.99998" height="99.99994" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="19.999975" ry="19.999975"/>
+<path id="s247513365" d="M 219.99992,689.99994 419.99957,689.99994 " fill="none" stroke-width="2.0" stroke="rgb(0,0,0)"/>
+<g id="t256001000">
+<text xml:space="preserve" x="319.99985" y="730.49603" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14"/>
+</g>
+</g>
+<g id="g223857153">
+<polygon id="s237292586" points="240.0,660.0 399.9996,660.0 400.0,699.9997 240.0,699.99994 " fill="none"/>
+<g id="t223857153">
+<text xml:space="preserve" x="305.0" y="685.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Voto</text>
+</g>
+</g>
+<g id="g50629351">
+<polygon id="s240904731" points="219.99998,720.0 420.00006,720.0 419.99982,739.9999 219.99998,739.9999 " fill="none"/>
+<g id="t50629351">
+<text xml:space="preserve" x="247.50003" y="735.49603" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">inscricaoEleitor: Integer</text>
+</g>
+</g>
+<g id="g15447700">
+<polygon id="s173610936" points="219.99998,700.0 420.00006,700.0 420.00006,720.0 219.99998,719.9999 " fill="none"/>
+<g id="t15447700">
+<text xml:space="preserve" x="233.00003" y="715.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">inscricaoCandidato : Integer</text>
+</g>
+</g>
+<g id="g34013490">
+<rect id="s226056593" x="220.0" y="760.0" width="200.0" height="20.0" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="10.0" ry="10.0"/>
+<g id="t34013490">
+<text xml:space="preserve" x="267.5" y="775.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Getters &amp; Setters</text>
+</g>
+</g>
+<g id="g6688761">
+<polygon id="s219906294" points="460.00006,480.00003 560.0001,480.00003 560.0,520.0 460.00006,520.0 " fill="none"/>
+<g id="t6688761">
+<text xml:space="preserve" x="491.0001" y="505.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Cargo</text>
+</g>
+</g>
+<g id="g132700990">
+<polygon id="s172297463" points="460.00006,540.0001 560.0,540.0001 559.9999,560.0001 460.00006,560.0001 " fill="none"/>
+<g id="t132700990">
+<text xml:space="preserve" x="469.50003" y="555.4962" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">nome : String</text>
+</g>
+</g>
+<g id="g15101343">
+<polygon id="s123991908" points="440.00012,520.0 580.0,520.0 580.0,540.0001 440.00012,540.0001 " fill="none"/>
+<g id="t15101343">
+<text xml:space="preserve" x="456.50006" y="535.49615" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">codCargo : String</text>
+</g>
+</g>
+<g id="g240551616">
+<rect id="s105446861" x="440.0" y="480.0" width="140.0" height="99.99997" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="19.99997" ry="19.99997"/>
+<path id="s66500226" d="M 440.00012,509.9999 579.9999,510.00003 " fill="none" stroke-width="2.0" stroke="rgb(0,0,0)"/>
+</g>
+<g id="g61180394">
+<rect id="s104038803" x="440.0" y="580.0" width="139.99988" height="19.999878" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="9.999939" ry="9.999939"/>
+<g id="t61180394">
+<text xml:space="preserve" x="457.49994" y="595.49603" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Getters &amp; Setters</text>
+</g>
+</g>
+<g id="g116552791">
+<rect id="s1779152" x="60.000008" y="580.0" width="139.99998" height="20.0" fill="none" stroke-width="2.0" stroke="rgb(0,0,0)" rx="10.0" ry="10.0"/>
+<g id="t116552791">
+<text xml:space="preserve" x="77.5" y="595.4961" font-family="Sans,Helvetica" fill="rgb(0,0,0)" font-size="14">Getters &amp; Setters</text>
+</g>
+</g>
+</svg>

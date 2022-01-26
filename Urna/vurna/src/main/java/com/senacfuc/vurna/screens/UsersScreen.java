@@ -20,7 +20,7 @@ import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
 public class UsersScreen extends javax.swing.JFrame {
-    private DbManager dbmanager;
+    private final DbManager dbmanager;
 
     public UsersScreen(DbManager dbmanager) {
         this.dbmanager = dbmanager;
@@ -71,6 +71,7 @@ public class UsersScreen extends javax.swing.JFrame {
         jSeparator1 = new JSeparator();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("VUrna - Eleitores");
         setResizable(false);
 
         jScrollPane1.setViewportView(usersTable);

@@ -1,15 +1,20 @@
 package com.senacfuc.vurna.screens;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
 
 import com.senacfuc.vurna.data.EleitorDao;
 import com.senacfuc.vurna.objs.Eleitor;
@@ -49,13 +54,14 @@ public class MainScreen extends JFrame {
         btnCargos = new JButton();
         welcomeText = new JLabel();
         btnUsers = new JButton();
+        candidatosBtn = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Eleiçao");
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new Color(51, 51, 51));
         setResizable(false);
 
-        btnVote.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        btnVote.setFont(new Font("Franklin Gothic Book", 0, 14)); // NOI18N
         btnVote.setText("Votar");
         btnVote.setFocusPainted(false);
         btnVote.addActionListener(new ActionListener() {
@@ -64,10 +70,10 @@ public class MainScreen extends JFrame {
             }
         });
 
-        titleLb.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        titleLb.setFont(new Font("Dialog", 1, 20)); // NOI18N
         titleLb.setText("Eleiçao");
 
-        btnCargos.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        btnCargos.setFont(new Font("Franklin Gothic Book", 0, 14)); // NOI18N
         btnCargos.setText("Cargos & Estatísticas");
         btnCargos.setFocusPainted(false);
         btnCargos.addActionListener(new ActionListener() {
@@ -76,7 +82,7 @@ public class MainScreen extends JFrame {
             }
         });
 
-        btnUsers.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        btnUsers.setFont(new Font("Franklin Gothic Book", 0, 14)); // NOI18N
         btnUsers.setText("Eleitores");
         btnUsers.setFocusPainted(false);
         btnUsers.addActionListener(new ActionListener() {
@@ -85,40 +91,52 @@ public class MainScreen extends JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        candidatosBtn.setFont(new Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        candidatosBtn.setText("Candidatos");
+        candidatosBtn.setFocusPainted(false);
+        candidatosBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                candidatosBtnActionPerformed(evt);
+            }
+        });
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(separator)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVote, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(btnCargos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVote, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addComponent(btnCargos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUsers, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(titleLb)
                             .addComponent(welcomeText))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(candidatosBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(welcomeText)
                 .addGap(10, 10, 10)
-                .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVote, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCargos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addComponent(separator, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVote, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(candidatosBtn, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUsers, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCargos, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -150,10 +168,16 @@ public class MainScreen extends JFrame {
         us.init();
     }//GEN-LAST:event_btnUsersActionPerformed
 
+    private void candidatosBtnActionPerformed(ActionEvent evt) {//GEN-FIRST:event_candidatosBtnActionPerformed
+        CandidatosScreen cs = new CandidatosScreen(dbmanager, null);
+        cs.init();
+    }//GEN-LAST:event_candidatosBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton btnCargos;
     private JButton btnUsers;
     private JButton btnVote;
+    private JButton candidatosBtn;
     private JSeparator separator;
     private JLabel titleLb;
     private JLabel welcomeText;

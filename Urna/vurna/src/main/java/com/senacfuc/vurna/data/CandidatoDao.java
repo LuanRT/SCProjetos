@@ -62,7 +62,7 @@ public class CandidatoDao {
         statement.setString(1, cod_cargo);
         ResultSet result = statement.executeQuery();
 
-        List<Candidato> candidatos = new ArrayList<Candidato>();
+        List<Candidato> candidatos = new ArrayList<>();
 
         while (result.next()) {
             Candidato candidato = new Candidato();
@@ -79,6 +79,37 @@ public class CandidatoDao {
         return candidatos;
     }
 
+    /**
+     * Retorna todos os candidatos disponiveis.
+     * 
+     * @return List<Candidato>
+     * @throws SQLException
+     */
+    public List<Candidato> getAllCandidatos() throws SQLException {
+        Connection conn = dbmanager.getConnection();
+
+        String query = "SELECT * FROM Candidato;";
+
+        PreparedStatement statement = conn.prepareStatement(query);
+        ResultSet result = statement.executeQuery();
+
+        List<Candidato> candidatos = new ArrayList<>();
+
+        while (result.next()) {
+            Candidato candidato = new Candidato();
+            candidato.setNome(result.getString("nome"));
+            candidato.setInscricao(result.getInt("inscricao"));
+            candidato.setCodPartido(result.getString("codPartido"));
+            candidato.setCodCargo(result.getString("codCargo"));
+            candidatos.add(candidato);
+        }
+
+        dbmanager.closePreparedStatement(statement);
+        dbmanager.closeResultSet(result);
+
+        return candidatos;
+    }
+    
     /**
      * Verifica se o candidato esta cadastrado na database.
      * 

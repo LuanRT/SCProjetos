@@ -20,6 +20,8 @@ public class Constants {
             // InfoScreen
             CANDIDATO = "Candidato",
             INSCRICAO = "Inscrição",
+            PARTIDO = "Partido",
+            CARGO = "Cargo",
             VOTOS = "Votos",
             PER = "%",
             
@@ -37,6 +39,7 @@ public class Constants {
             VOTE_ERR_3 = "Não foi possível verificar o seu voto.",
             VOTE_ERR_4 = "Digite o número do candidato no qual deseja votar ou clique em \"Branco\"\ncaso queira registrar seu voto como branco.",
             
+            CANDIDATOS_LIST = "Ver candidatos disponíveis para {cargo}",
             DB_ERR = "Não foi possível se conectar a database.",
             END = "FIM",
 

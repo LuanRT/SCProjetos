@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class CargosScreen extends javax.swing.JFrame {
 
-    private DbManager dbmanager;
+    private final DbManager dbmanager;
     private List<Cargo> cargos;
     private List<StatsScreen> stat_screens;
 

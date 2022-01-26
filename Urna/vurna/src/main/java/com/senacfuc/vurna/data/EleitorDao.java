@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.senacfuc.vurna.objs.Eleitor;
+import com.senacfuc.vurna.utils.Constants;
 import com.senacfuc.vurna.utils.DbManager;
 
 public class EleitorDao {
@@ -54,8 +55,10 @@ public class EleitorDao {
     public List<Eleitor> getAllEleitores() throws SQLException {
         Connection conn = dbmanager.getConnection();
 
-        String query = "SELECT * FROM Eleitor";
+        String query = "SELECT * FROM Eleitor WHERE Eleitor.inscricao != ?;";
+
         PreparedStatement statement = conn.prepareStatement(query);
+        statement.setInt(1, Integer.parseInt(Constants.ADMIN));
 
         ResultSet result = statement.executeQuery();
 
