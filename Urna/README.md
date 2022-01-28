@@ -8,7 +8,7 @@ Projeto final do curso de desenvolvimento de sistemas do Senac.
 
 [3. Diagrama de Entidade Relacionamento](#DER)
 
-[4. Mais Informações](mais-info)
+[4. Mais Informações](#mais-info)
 
 ### Fluxograma
 ![flowchart](docs/flowchart.png "Flowchart")
