@@ -70,8 +70,8 @@ public class UrnaScreen extends JFrame {
             current_cargo = cargos.get(cargo_counter);
             vote_queue = new ArrayList<>();
 
-            lbPosition.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
-            seeAvailableRolesBtn.setText(Constants.CANDIDATOS_LIST.replace("{cargo}", current_cargo.getNome()));
+            lbCargo.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
+            seeCargoListBtn.setText(Constants.CANDIDATOS_LIST.replace("{cargo}", current_cargo.getNome()));
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, Constants.DB_ERR, Constants.ERROR, JOptionPane.ERROR_MESSAGE);
         }
@@ -127,8 +127,8 @@ public class UrnaScreen extends JFrame {
             registerVotes();
         } else {
             current_cargo = cargos.get(cargo_counter);
-            lbPosition.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
-            seeAvailableRolesBtn.setText(Constants.CANDIDATOS_LIST.replace("{cargo}", current_cargo.getNome()));
+            lbCargo.setText(Constants.VOTE_TIP_1.replace("{cargo}", current_cargo.getNome()));
+            seeCargoListBtn.setText(Constants.CANDIDATOS_LIST.replace("{cargo}", current_cargo.getNome()));
             resetFields();
         }
     }
@@ -204,10 +204,10 @@ public class UrnaScreen extends JFrame {
         btnWhite = new JButton();
         btnFix = new JButton();
         btnConfirm = new JButton();
-        seeAvailableRolesBtn = new JButton();
+        seeCargoListBtn = new JButton();
         lbName = new JLabel();
         lbNumber = new JLabel();
-        lbPosition = new JLabel();
+        lbCargo = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new Color(51, 51, 51));
@@ -384,12 +384,12 @@ public class UrnaScreen extends JFrame {
             }
         });
 
-        seeAvailableRolesBtn.setBackground(new Color(51, 51, 51));
-        seeAvailableRolesBtn.setFont(new Font("Dialog", 1, 11)); // NOI18N
-        seeAvailableRolesBtn.setForeground(new Color(255, 255, 255));
-        seeAvailableRolesBtn.setText("Ver candidatos disponíveis para {cargo}");
-        seeAvailableRolesBtn.setFocusPainted(false);
-        seeAvailableRolesBtn.addActionListener(new ActionListener() {
+        seeCargoListBtn.setBackground(new Color(51, 51, 51));
+        seeCargoListBtn.setFont(new Font("Dialog", 1, 11)); // NOI18N
+        seeCargoListBtn.setForeground(new Color(255, 255, 255));
+        seeCargoListBtn.setText("Ver candidatos disponíveis para {cargo}");
+        seeCargoListBtn.setFocusPainted(false);
+        seeCargoListBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 seeAvailableRolesBtnActionPerformed(evt);
             }
@@ -427,7 +427,7 @@ public class UrnaScreen extends JFrame {
                         .addComponent(btnConfirm, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(seeAvailableRolesBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(seeCargoListBtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -457,7 +457,7 @@ public class UrnaScreen extends JFrame {
                         .addComponent(btnFix, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnConfirm, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(seeAvailableRolesBtn, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(seeCargoListBtn, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -469,9 +469,9 @@ public class UrnaScreen extends JFrame {
         lbNumber.setHorizontalAlignment(SwingConstants.CENTER);
         lbNumber.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        lbPosition.setFont(new Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        lbPosition.setHorizontalAlignment(SwingConstants.CENTER);
-        lbPosition.setText("Seu voto para {vaga}:");
+        lbCargo.setFont(new Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        lbCargo.setHorizontalAlignment(SwingConstants.CENTER);
+        lbCargo.setText("Seu voto para {vaga}:");
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -482,7 +482,7 @@ public class UrnaScreen extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(lbPosition, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbCargo, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbPhoto, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbNumber, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -497,7 +497,7 @@ public class UrnaScreen extends JFrame {
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(lbPosition)
+                        .addComponent(lbCargo)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbNumber, GroupLayout.PREFERRED_SIZE, 11, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -626,7 +626,7 @@ public class UrnaScreen extends JFrame {
     private JLabel lbName;
     private JLabel lbNumber;
     private JLabel lbPhoto;
-    private JLabel lbPosition;
-    private JButton seeAvailableRolesBtn;
+    private JLabel lbCargo;
+    private JButton seeCargoListBtn;
     // End of variables declaration//GEN-END:variables
 }
